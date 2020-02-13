@@ -1,0 +1,17 @@
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.fdb_latexmk
+*.fls
+*.nav
+*.out
+*.snm
+*synctex*
+*.toc
+*.vrb
+*.log
+*.pdf
+
+# JVM & Scala
+target/
+*.class
+

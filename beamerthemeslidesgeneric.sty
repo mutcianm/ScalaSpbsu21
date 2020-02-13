@@ -1,0 +1,43 @@
+\setbeamertemplate{footline}{
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \footnotesize\insertframenumber/\insertframeendpage\kern1em\vskip2pt%
+}
+%\setbeamersize{text margin left=5pt,text margin right=5pt}
+
+%\mode<presentation>
+%{
+  %\usetheme{default}
+  %\setbeamercovered{invisible}
+  %\setbeamertemplate{footline}{\hfill\insertframenumber/\inserttotalframenumber}
+%}
+
+\beamertemplatenavigationsymbolsempty
+\linespread{1.5}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{alerted text}{fg=blue}
+\usepackage{tikz}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstdefinestyle{scala}{
+  frame=tb,
+  language=scala,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\linespread{1}\footnotesize\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2,
+}
+
