@@ -192,7 +192,7 @@ object SomeClass {
     \item In Scala, a class can only have one superclass, but many traits
     \item Can have methods and properties
     \item \alert{Can have} member definitions
-    \item Cannot have constructors
+    \item \alert{Cannot}  have constructors
   \end{itemize}
 \end{frame}
 
@@ -202,21 +202,74 @@ trait Planar {
   def height: Int
   def width: Int
   def surface = height * width // <<<
+  val denom: Double
+  val coeff: Double = 3.74716565 // <<<
 }
 
 class Square extends Shape with Planar with Movable
 \end{lstlisting}
 \end{frame}
 
-% abstract classes
-% binary compatibility of traits ?
-\begin{frame}{Abstarct classes}
-  \begin{itemize}
-    \item Can have methods and properties
-    \item Can have member definitions
-    \item \alert{Can} have constructors
-  \end{itemize}
+%\begin{frame}{Traits}{Usage}
+  %\begin{itemize}
+    %\item interfaces
+    %\item mixins
+    %\item abstract overrides / stackable traits
+  %\end{itemize}
+%\end{frame}
+
+\begin{frame}[fragile]{Mixins}
+\begin{lstlisting}[style=scala,language=scala]
+trait A
+  { def foo: Int }
+trait B extends A 
+  { override def foo = 1 }
+trait C extends A 
+  { override def foo = 2 }
+ 
+new (trait D extends C with B).foo == 1
+\end{lstlisting}
 \end{frame}
+
+\begin{frame}[fragile]{Mixins}
+\begin{lstlisting}[style=scala,language=scala]
+trait A
+  { def foo: Int }
+trait B extends A
+  { def foo = 1 }
+trait C extends A
+  { def foo = 2 }
+
+trait D extends C with B // <<<
+\end{lstlisting}
+\pause
+\begin{verbatim}
+error: trait D inherits conflicting members:
+  method foo in trait C of type => Int  and
+  method foo in trait B of type => Int
+(Note: this can be resolved by declaring an override in trait D.)
+       trait D extends C with B
+\end{verbatim}
+\end{frame}
+
+%\begin{frame}[fragile]{Traits}{Abstract overrides}
+%\begin{lstlisting}[style=scala,language=scala]
+%trait Foo
+  %{ def foo: String }
+%trait Bar extends Foo
+ %{ abstract override def foo }
+%\end{lstlisting}
+%\end{frame}
+%% abstract classes
+%% binary compatibility of traits ?
+%\begin{frame}{Abstarct classes}
+  %\begin{itemize}
+    %\item Can have methods and properties
+    %\item Can have member definitions
+    %\item \alert{Cannot} be mixed in 
+    %\item \alert{Can} have constructors
+  %\end{itemize}
+%\end{frame}
 
 % super calls
 \begin{frame}{Super calls}
@@ -343,6 +396,10 @@ class Person() {
       \end{tabular}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{Abstract override}
+  \LARGE TODO
 \end{frame}
 
 % access modifiers
