@@ -35,11 +35,11 @@
 \begin{frame}{Manual vs Automated}
   Who does testing?
   \begin{itemize}
-    \item \textbf{Manual testing}~-- perfomed by \textit{human}.
-    \item \textbf{Automated testing}~-- perfomed by \textit{program}.
+    \item \textbf{Manual testing}~-- perfomed by a \textit{human}.
+    \item \textbf{Automated testing}~-- perfomed by a \textit{program}.
   \end{itemize}
   \pause
-  Why does manual testing still exists?
+  Why does manual testing still exist?
   \pause
   \begin{itemize}
     \item $t$~-- time to manually perform some test scenario once
@@ -74,7 +74,7 @@
 
 % levels
 \begin{frame}{Testing levels (1)}
-  We can perform testing of the application on the different levels.
+  We can perform testing of the application on different levels.
   \begin{itemize}
     \item \textbf{Unit testing}
       \begin{itemize}
@@ -92,8 +92,8 @@
     \pause
     \item \textbf{System testing}
       \begin{itemize}
-        \item Example: use the API of the server from the \textit{different machine}
-        \item The fairiest testing
+        \item Example: use the server API from a \textit{different machine}
+        \item The fairest testing
         \item Slow, complex, unstable
         \item \ldots
       \end{itemize}
@@ -133,8 +133,8 @@
 \begin{frame}{Terminology}
   <<Test>> has a vague meaning. It's better to use more precise terms:
   \begin{itemize}
-    \item \textbf{Test-case}~-- a test scenario. Usually it is a method
-    \item \textbf{Test-suite}~-- a set of test-cases. Usually it is a class
+    \item \textbf{Test-case}~-- a test scenario. Usually a method
+    \item \textbf{Test-suite}~-- a set of test-cases. Usually a class
   \end{itemize}
 \end{frame}
 
@@ -144,7 +144,7 @@
   \begin{itemize}
     \item Test-case started
     \item Test-case finished. Result: \textit{success} or \textit{failure}
-    \item If result is \textit{failure} then it generates a test-report
+    \item If result is a \textit{failure} then it generates a test-report
   \end{itemize}
 \end{frame}
 
@@ -174,7 +174,7 @@
     \pause
       \begin{itemize}
         \item Low \textit{cyclomatic complexity} of the test code
-        \item Of course, other good coding practice
+        \item Of course, other good coding practices
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -240,8 +240,8 @@
 \begin{frame}[fragile]{Property-base test-case}
   \begin{itemize}
     \item \textbf{Invariant}~-- the predicate that always must be true: $\forall x \in X: predicate(x)$
-    \item This kind of test-cases is for checking invariants
-    \item There are some situations where this type of test are better than a usual test
+    \item This kind of test-cases checks the invariants
+    \item There are some situations where this type of test is better than a usual test
     \item Use \underline{Generator} pattern to implement test-cases of this type.
   \end{itemize}
 \end{frame}
@@ -262,7 +262,7 @@
 
 % summary
 \begin{frame}{Summary}
-  What we have learn:
+  What we have learnt:
   \begin{itemize}
     \item Tests should be as simple as possible
     \item Prefer Balck or Grey-box approach in most situations
