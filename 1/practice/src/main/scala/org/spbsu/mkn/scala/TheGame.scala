@@ -31,7 +31,7 @@ object TheGame {
   def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = {
     if (secret.length != userInput.length)
       throw new WrongNumberLengthException(secret.length, userInput.length)
-    if (secret.toSet.size != secret.length)
+    if (secret.toSet.size != secret.length || userInput.toSet.size != userInput.length)
       throw new RepeatingDigitsException
 
     if (secret == userInput) Correct(numTries)
@@ -39,11 +39,12 @@ object TheGame {
       var cntCow = 0
       var cntBull = 0
       for (i <- 0 until secret.length) {
-        if (secret(i) == userInput(i))
-          cntBull += 1
-        else
-            if (userInput.indexOf(secret(i)) != -1)
-              cntCow += 1
+        val ind = userInput.indexOf(secret(i))
+        ind match {
+          case x if x == i => cntBull += 1
+          case x if x != -1 => cntCow += 1
+          case _ =>
+        }
       }
       Incorrect(cntBull, cntCow)
     }
