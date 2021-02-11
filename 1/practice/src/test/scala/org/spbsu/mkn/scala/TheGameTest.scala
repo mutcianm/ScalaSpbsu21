@@ -12,6 +12,12 @@ class TheGameTest extends AnyFunSuite {
     assert(generateNumberString(10).length == 10)
   }
 
+  test("generated number has all unique digits") {
+    assert(generateNumberString(4).toSet.size == 4)
+    assert(generateNumberString(7).toSet.size == 7)
+    assert(generateNumberString(10).toSet.size == 10)
+  }
+
   test("mismatched guess length is reported") {
     assertThrows[TheGame.WrongNumberLengthException](validate("0", "000"))
     assertThrows[TheGame.WrongNumberLengthException](validate("12345", "0"))
