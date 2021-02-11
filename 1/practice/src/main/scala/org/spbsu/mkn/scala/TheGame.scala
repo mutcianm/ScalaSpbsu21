@@ -38,8 +38,8 @@ object TheGame {
     val setUI = userInput.toSeq.toSet
     val setS = secret.toSeq.toSet
 
-    if (setS.size != lenS) {
-      throw new RepeatingDigitsException;
+    if (setUI.size != lenUI) {
+      throw new RepeatingDigitsException
     }
 
     var bulls = setUI.intersect(setS).size
@@ -86,7 +86,7 @@ object TheGame {
           case _ =>
         }
       } catch {
-        case e:RepeatingDigitsException => ???
+        case e:RepeatingDigitsException => println("Repeating digits are not allowed!")
         case e:WrongNumberLengthException => println(s"Wrong length!")
       }
     }
