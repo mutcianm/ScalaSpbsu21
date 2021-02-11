@@ -1,7 +1,7 @@
 package org.spbsu.mkn.scala
 
 import scala.io.StdIn.readLine
-import scala.util.Random
+import scala.util.{Random, Try}
 
 object TheGame {
 
@@ -37,5 +37,27 @@ object TheGame {
     print("Enter your name: ")
     val name = readLine()
     println(s"Hello, $name!")
+
+    println("Enter secret's length: ")
+    val length = readLine().toInt
+
+    val secret = generateNumberString(length)
+    var numTries = 0
+
+    while (true) {
+      numTries += 1
+      println("Enter your guess: ")
+      val guess = readLine()
+      try {
+        validate(secret, guess, numTries) match {
+          case Correct(x) => println(s"Correct, $x tries total")
+          case Incorrect(bulls, cows) => println(s"Bulls: $bulls, cows: $cows")
+        }
+
+      } catch {
+        case e : WrongNumberLengthException => println("Wrong number length")
+        case e: RepeatingDigitsException => println("Repeating digits")
+      }
+    }
   }
 }
