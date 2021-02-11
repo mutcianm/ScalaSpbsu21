@@ -1,18 +1,11 @@
 package org.spbsu.mkn.scala
 
 import scala.io.StdIn.readLine
-import scala.util.{Random, Try}
+import scala.util.Random
 
 object TheGame {
 
-  sealed trait GuessResult
-  case class Correct(numTries: Int) extends GuessResult
-  case class Incorrect(bulls: Int, cows: Int) extends GuessResult
-
-  class RepeatingDigitsException extends RuntimeException
-  class WrongNumberLengthException(expected: Int, got: Int) extends RuntimeException
-
-  def generateNumberString(length: Int, chars: Set[Char] = (('A' to 'Z')++ ('0' to '9')).toSet): String = {
+  def generateNumberString(length: Int, chars: Set[Char] = (('A' to 'Z') ++ ('0' to '9')).toSet): String = {
     val char = chars.iterator.drop(Random.nextInt(chars.size)).next()
     length match {
       case 0 => ""
@@ -28,7 +21,7 @@ object TheGame {
       return Correct(numTries)
     }
 
-    val bulls = secret.zip(userInput).map {case (a, b) => a == b}.count(x => x)
+    val bulls = secret.zip(userInput).map { case (a, b) => a == b }.count(x => x)
     val cows = secret.toSet.intersect(userInput.toSet).size
     Incorrect(bulls, cows - bulls)
   }
@@ -55,9 +48,19 @@ object TheGame {
         }
 
       } catch {
-        case e : WrongNumberLengthException => println("Wrong number length")
+        case e: WrongNumberLengthException => println("Wrong number length")
         case e: RepeatingDigitsException => println("Repeating digits")
       }
     }
   }
+
+  sealed trait GuessResult
+
+  case class Correct(numTries: Int) extends GuessResult
+
+  case class Incorrect(bulls: Int, cows: Int) extends GuessResult
+
+  class RepeatingDigitsException extends RuntimeException
+
+  class WrongNumberLengthException(expected: Int, got: Int) extends RuntimeException
 }
