@@ -14,12 +14,7 @@ object TheGame {
 
   def generateNumberString(length: Int): String = {
     val symbols = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')
-    val sb = new StringBuilder
-    for (_ <- 1 to length) {
-      val randomIndex = util.Random.nextInt(symbols.length)
-      sb.append(symbols(randomIndex))
-    }
-    sb.toString
+    Random.shuffle(symbols).toString.take(length)
   }
 
   def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = ???
