@@ -27,7 +27,6 @@ object TheGame {
       str = Random.nextString(length)
     }
     str
-    "abc"
   }
 
   def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = {
