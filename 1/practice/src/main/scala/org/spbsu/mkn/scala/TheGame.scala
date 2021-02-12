@@ -20,7 +20,8 @@ object TheGame {
   def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = {
     if (secret.length != userInput.length)
       throw new WrongNumberLengthException(secret.length, userInput.length)
-
+    else if (secret.length != userInput.toSet.size)
+      throw new RepeatingDigitsException
 
   }
 
