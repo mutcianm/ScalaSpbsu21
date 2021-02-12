@@ -17,7 +17,12 @@ object TheGame {
     Random.shuffle(symbols).toString.take(length)
   }
 
-  def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = ???
+  def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = {
+    if (secret.length != userInput.length)
+      throw new WrongNumberLengthException(secret.length, userInput.length)
+
+
+  }
 
   def main(args: Array[String]): Unit = {
     print("Enter your name: ")
