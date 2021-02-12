@@ -22,7 +22,13 @@ object TheGame {
       throw new WrongNumberLengthException(secret.length, userInput.length)
     else if (secret.length != userInput.toSet.size)
       throw new RepeatingDigitsException
-
+    else if (secret == userInput)
+      Correct(numTries)
+    else {
+      val matchingSymbols = userInput.toSet.intersect(secret.toSet).size
+      val bulls = userInput.zipWithIndex.count(i => secret.zipWithIndex.contains(i))
+      Incorrect(bulls, matchingSymbols - bulls)
+    }
   }
 
   def main(args: Array[String]): Unit = {
