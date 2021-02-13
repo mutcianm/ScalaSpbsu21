@@ -2,9 +2,22 @@ import java.io.File
 
 //Local functions
 
+def foo() = {
+  def bar() = {
+
+  }
+
+  bar()
+}
 //More about functions:
 
 //todo: repeated parameters
+
+def foo1(a: Int*) = a
+
+foo1(1, 2, 3)
+foo1()
+
 
 //todo: named parameters
 
@@ -12,4 +25,24 @@ import java.io.File
 
 //todo: by-name parameters
 
+def foo2(a: => String) = {
+  println("str")
+  println(a)
+}
+def str = {
+  println("str")
+  "foo"
+}
+foo2(str)
+
 //todo: currying
+
+def withResources(f: File)(body : File => Unit)
+
+val functionToUnit = withResources(???)(_)
+functionToUnit { f =>
+  f.deleteOnExit()
+}
+
+
+
