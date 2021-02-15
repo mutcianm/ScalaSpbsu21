@@ -19,8 +19,8 @@ object TheGame {
     var secret: List[Char] = List()
     while (secret.length < length) {
       val newSymbol = alphanumeric.take(1)
-      if (!secret.contains(newSymbol.toList(0))) {
-        secret = secret.concat(newSymbol)
+      if (!secret.contains(newSymbol.toList.head)) {
+        secret = newSymbol.toList.head :: secret
       }
     }
     secret.mkString("")
@@ -63,10 +63,9 @@ object TheGame {
       val userInput = readLine()
       try {
         validate(secret, userInput, tries) match {
-          case Correct(numTries) => {
+          case Correct(numTries) =>
             println(s"Congratulations! You needed $numTries tries to guess my word!")
             end = true
-          }
           case Incorrect(bulls, cows) => println(s"Bulls: $bulls, cows: $cows")
         }
 
