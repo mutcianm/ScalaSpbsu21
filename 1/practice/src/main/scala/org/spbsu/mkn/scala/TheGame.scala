@@ -61,9 +61,8 @@ object TheGame {
       tries += 1
       println("Enter your string: ")
       val userInput = readLine()
-      val result: GuessResult = validate(secret, userInput, tries)
       try {
-        result match {
+        validate(secret, userInput, tries) match {
           case Correct(numTries) => {
             println(s"Congratulations! You needed $numTries tries to guess my word!")
             end = true
