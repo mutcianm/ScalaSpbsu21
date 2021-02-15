@@ -29,18 +29,16 @@ object TheGame {
   def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = {
     if (userInput.length != secret.length)
       throw new WrongNumberLengthException(secret.length, userInput.length)
-    else if (secret.length != secret.toSet.size)
+    if (secret.length != secret.toSet.size)
       throw new RepeatingDigitsException
-    else if (secret == userInput)
-      Correct(numTries)
-    else {
-      var bulls, cows = 0
-      for (i <- 0 until userInput.length) {
-        if (userInput(i) == secret(i)) bulls += 1
-        else if (secret.contains(userInput(i))) cows += 1
+    if (secret == userInput)
+      return Correct(numTries)
+    var bulls, cows = 0
+    for (i <- 0 until userInput.length) {
+      if (userInput(i) == secret(i)) bulls += 1
+      else if (secret.contains(userInput(i))) cows += 1
       }
-      Incorrect(bulls, cows)
-    }
+    Incorrect(bulls, cows)
   }
 
   def main(args: Array[String]): Unit = {
