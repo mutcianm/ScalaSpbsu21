@@ -5,6 +5,7 @@ import scala.math.abs
 import scala.util.Random
 
 object TheGame {
+  private val possibleSymbols = (0 to 9).toList ++ ('A' to 'Z').toList
 
   sealed trait GuessResult
   case class Correct(numTries: Int) extends GuessResult
@@ -16,11 +17,11 @@ object TheGame {
   def generateNumberString(length: Int): String = {
     var result = ""
     val generator = new Random()
-    var possibleSymbols = (0 to 9).toList ++ ('A' to 'Z').toList
+    var remainingSymbols = possibleSymbols
     for {_ <- 1 to length} {
-      val nextIndex = abs(generator.nextInt()) % possibleSymbols.length
-      result += possibleSymbols(nextIndex)
-      possibleSymbols = possibleSymbols.take(nextIndex) ++ possibleSymbols.drop(nextIndex + 1)
+      val nextIndex = abs(generator.nextInt()) % remainingSymbols.length
+      result += remainingSymbols(nextIndex)
+      remainingSymbols = remainingSymbols.take(nextIndex) ++ remainingSymbols.drop(nextIndex + 1)
     }
     result
   }
