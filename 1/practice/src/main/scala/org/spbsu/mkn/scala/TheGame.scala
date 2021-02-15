@@ -25,7 +25,19 @@ object TheGame {
     result
   }
 
-  def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = ???
+  def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = {
+    if (userInput.length != secret.length) throw new WrongNumberLengthException(secret.length, userInput.length)
+    if (secret.length != secret.toSet.size) throw new RepeatingDigitsException
+    if (userInput.length != userInput.toSet.size) throw new RepeatingDigitsException
+    if (userInput == secret) return Correct(numTries)
+    var bulls = 0
+    var cows = 0
+    for {i <- 0 until secret.length} {
+      if (secret(i) == userInput(i)) bulls += 1
+      else if (userInput.contains(secret(i))) cows += 1
+    }
+    Incorrect(bulls, cows)
+  }
 
   def main(args: Array[String]): Unit = {
     print("Enter your name: ")
