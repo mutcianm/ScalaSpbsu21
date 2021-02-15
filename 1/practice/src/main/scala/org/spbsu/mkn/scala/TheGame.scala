@@ -44,5 +44,31 @@ object TheGame {
     print("Enter your name: ")
     val name = readLine()
     println(s"Hello, $name!")
+
+    val length = 4
+    val secret = generateNumberString(length)
+    println(s"Guess my string of $length symbols")
+
+    var guessResult: GuessResult = Incorrect(0,0)
+
+    for {
+      numOfTry <- 1 to 100
+      if !guessResult.isInstanceOf[Correct]
+    } {
+      try {
+        val userInput = readLine()
+        guessResult = validate(secret, userInput, numOfTry)
+        guessResult match {
+          case Correct(numTries) => println(s"You won in $numTries guesses!")
+          case Incorrect(bulls, cows) => println(s"Incorrect, $bulls bulls ans $cows cows")
+        }
+      } catch {
+        case error: WrongNumberLengthException =>
+          println(s"Your string should contain ${secret.length} symbols")
+        case error: RepeatingDigitsException =>
+          println(s"Your string should not contain repeating symbols")
+        case error => println(s"An error occurred :(\n" + error.getMessage)
+      }
+    }
   }
 }
