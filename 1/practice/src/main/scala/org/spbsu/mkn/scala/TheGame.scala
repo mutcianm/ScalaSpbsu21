@@ -55,17 +55,27 @@ object TheGame {
 
     while (isOn) {
 
-      attempt += 1
-      val userInput = readLine()
-      val result = validate(secret, userInput, attempt)
+      try {
 
-      result match {
-        case correct: Correct =>
-          isOn = false
-          println("Congrats! You guessed the string after " + correct.numTries + " attempt(s)")
-        case incorrect: Incorrect =>
-          println("Not there yet. You got " + incorrect.cows + " moo and " + incorrect.bulls + " \"angry bull sound\"")
+        val userInput = readLine()
+        val result = validate(secret, userInput, attempt)
+
+        attempt += 1
+        result match {
+          case correct: Correct =>
+            isOn = false
+            println("Congrats! You guessed the string after " + correct.numTries + " attempt(s)")
+          case incorrect: Incorrect =>
+            println("Not there yet. You got " + incorrect.cows + " moo and " + incorrect.bulls + " \"angry bull sound\"")
           //interesting fact I couldn't find what a bull sounds like
+        }
+      } catch {
+        case e: RepeatingDigitsException => {
+          println("Ooooops there are some repeating characters...")
+        }
+        case e: WrongNumberLengthException => {
+          println("Looks like the string is too short or too long")
+        }
       }
     }
   }
