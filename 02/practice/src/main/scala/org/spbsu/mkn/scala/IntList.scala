@@ -15,6 +15,6 @@ sealed trait IntList {
 object IntList {
   def undef: Nothing = throw new UnsupportedOperationException("operation is undefined")
   def fromSeq(seq: Seq[Int]): IntList = ???
-  def sum(intList: IntList): Int   = ???
-  def size(intList: IntList): Int = ???
+  def sum(intList: IntList): Int      = ???
+  def size(intList: IntList): Int     = ???
 }
