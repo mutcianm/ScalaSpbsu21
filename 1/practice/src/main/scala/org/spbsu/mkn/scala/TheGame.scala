@@ -31,6 +31,7 @@ object TheGame {
 
   def validate(secret: String, userInput: String, numTries: Int = 1): GuessResult = {
     if (!isCorrectString(secret)) throw new RepeatingDigitsException()
+    if (!isCorrectString(userInput)) throw new RepeatingDigitsException()
     if (userInput.length != secret.length) throw new WrongNumberLengthException(secret.length, userInput.length)
     var bulls = 0
     var cows = 0
