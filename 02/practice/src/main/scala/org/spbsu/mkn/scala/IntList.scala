@@ -17,4 +17,6 @@ object IntList {
   def fromSeq(seq: Seq[Int]): IntList = ???
   def sum(intList: IntList): Int      = ???
   def size(intList: IntList): Int     = ???
+  // extra task: implement sum using foldLeft
+  // def foldLeft(???)(???): ??? = ???
 }
