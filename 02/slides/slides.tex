@@ -13,9 +13,9 @@
 % SETUP =====================================
 
 \title{Scala Object System}
-\author{Mikhail Mutcianko, Alexey Otts}
+\author{Mikhail Mutcianko, Alexey Shcherbakov}
 \institute{СПБгУ, СП}
-\date{\today}
+\date{18 февраля 2021}
 
 \begin{document}
 
@@ -359,7 +359,7 @@ class Person() {
         \hline
         val & \cmark & \xmark & \xmark & \xmark \\
         \hline
-        lazy & \cmark & \xmark & \xmark & \xmark \\
+        lazy & \xmark & \cmark & \xmark & \xmark \\
         \hline
         var & \xmark & \xmark & \xmark & \xmark \\
         \hline
@@ -383,24 +383,24 @@ class Person() {
     \end{column}
     \begin{column}{0.5\textwidth}
       \centering
-      \begin{tabular}{|c|c|c|c|}
+      \begin{tabular}{|c|c|c|c|c|}
         \hline
-         & val & var & def \\
+         & val & var & def & lazy val\\
         \hline
-        val & \cmark  & \xmark & \xmark \\
+        val & \cmark  & \xmark & \xmark & \cmark \\
         \hline
-        var & \cmark+  & \cmark & \cmark+ \\
+        var & \cmark+  & \cmark & \cmark+ & \cmark+ \\
         \hline
-        def & \cmark  & \cmark & \cmark \\
+        def & \cmark  & \cmark & \cmark & \cmark \\
         \hline
       \end{tabular}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Abstract override}
-  \LARGE TODO
-\end{frame}
+%\begin{frame}{Abstract override}
+  %\LARGE TODO
+%\end{frame}
 
 % access modifiers
 \begin{frame}{Acess modifiers}
@@ -728,7 +728,7 @@ val fullName = animal match {
 
 % functional list example
 
-\section{Practice \\ Functional List}
+%\section{Practice \\ Functional List}
 
 %\section{Polymorphic Tyes}
 
