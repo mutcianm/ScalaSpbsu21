@@ -18,7 +18,7 @@ sealed trait IntList {
   def ::(elem: Int): IntList
 }
 
-case class FPList(var head: Int, var tail: IntList) extends IntList {
+case class FPList(head: Int, tail: IntList) extends IntList {
   override def drop(n: Int): IntList = {
     if (n <= 0) {
       return this
@@ -30,20 +30,15 @@ case class FPList(var head: Int, var tail: IntList) extends IntList {
     if (n <= 0) {
       return IntNil
     }
-    tail = tail.take(n - 1)
-    this
+    FPList(head, tail.take(n-1))
   }
 
   override def map(f: Int => Int): IntList = {
-    head = f(head)
-    tail = tail.map(f)
-    this
+    FPList(f(head), tail.map(f))
   }
 
   override def ::(elem: Int): IntList = {
-    tail = this
-    head = elem
-    this
+    FPList(elem, this)
   }
 }
 
