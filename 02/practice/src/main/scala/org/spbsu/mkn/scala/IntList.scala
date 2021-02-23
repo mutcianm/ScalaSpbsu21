@@ -40,7 +40,7 @@ object IntList {
 
   def size(intList: IntList): Int = intList match {
     case IntNil => 0
-    case _ => 1 + size(intList.tail)
+    case _ => foldLeft(_ => _ + 1)(intList)(0)
   }
 
 }
@@ -76,7 +76,6 @@ case class IntCons(override val head: Int, override val tail: IntList) extends I
   }
 
   override def map(f: Int => Int): IntList = IntCons(f(head), tail.map(f))
-
-
+  
 }
 
