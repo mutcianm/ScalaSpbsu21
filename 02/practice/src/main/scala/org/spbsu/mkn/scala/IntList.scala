@@ -19,3 +19,50 @@ object IntList {
   // extra task: implement sum using foldLeft
   // def foldLeft(???)(???): ??? = ???
 }
+
+case object IntNil extends IntList {
+  override def head: Int = undef
+
+  override def tail: IntList = undef
+
+  override def drop(n: Int): IntList = n match {
+    case 0 => IntNil
+    case x => undef
+  }
+
+  override def take(n: Int): IntList = n match {
+    case 0 => IntNil
+    case x => undef
+  }
+
+  override def map(f: Int => Int): IntList = IntNil
+
+  override def ::(elem: Int): IntList = IntListBuilder(elem, IntNil)
+
+  override def foldLeft[B](init: B)(op: (Int, B) => B): B = init
+}
+
+case class IntListBuilder(elem: Int, list: IntList) extends IntList {
+  override val head: Int = elem
+
+  override val tail: IntList = list
+
+  override def drop(n: Int): IntList = n match {
+    case 0 => this
+    case x if x > 0 => tail.drop(x - 1)
+    case _ => undef
+  }
+
+  override def take(n: Int): IntList = n match {
+    case 0 => IntNil
+    case x if x > 0 => head :: tail.take(x - 1)
+    case _ => undef
+  }
+
+  override def map(f: Int => Int): IntList = f(head) :: tail.map(f)
+
+  override def foldLeft[B](init: B)(op: (Int, B) => B): B = this match {
+    case IntListBuilder(x, IntNil) => op(x, init)
+    case IntListBuilder(x, lst) => tail.foldLeft(op(x, init))(op)
+  }
+}
