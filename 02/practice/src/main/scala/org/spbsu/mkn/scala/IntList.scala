@@ -8,16 +8,24 @@ sealed trait IntList {
   def drop(n: Int): IntList
   def take(n: Int): IntList
   def map(f: Int => Int): IntList
-  def ::(elem: Int): IntList = ???
+
+  def foldLeft[B](init: B)(op: (Int, B) => B): B
+
+  def ::(elem: Int): IntList = IntListBuilder(elem, this)
 }
 
-object IntList {
+case object IntList {
   def undef: Nothing = throw new UnsupportedOperationException("operation is undefined")
-  def fromSeq(seq: Seq[Int]): IntList = ???
-  def sum(intList: IntList): Int      = ???
-  def size(intList: IntList): Int     = ???
-  // extra task: implement sum using foldLeft
-  // def foldLeft(???)(???): ??? = ???
+
+  def fromSeq(seq: Seq[Int]): IntList = seq.foldRight(IntNil: IntList)((cur, total) => cur :: total)
+
+  def sum(intList: IntList): Int = intList match {
+    case IntListBuilder(x, IntNil) => x
+    case IntListBuilder(x, lst) => x + sum(lst)
+    case _ => undef
+  }
+
+  def size(intList: IntList): Int = intList.foldLeft(0)((_, cnt) => cnt + 1)
 }
 
 case object IntNil extends IntList {
