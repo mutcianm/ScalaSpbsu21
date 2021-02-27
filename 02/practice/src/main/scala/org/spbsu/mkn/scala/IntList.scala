@@ -35,12 +35,12 @@ case object IntNil extends IntList {
 
   override def drop(n: Int): IntList = n match {
     case 0 => IntNil
-    case x => undef
+    case _ => undef
   }
 
   override def take(n: Int): IntList = n match {
     case 0 => IntNil
-    case x => undef
+    case _ => undef
   }
 
   override def map(f: Int => Int): IntList = IntNil
