@@ -68,10 +68,10 @@ case class MyCons[T](override val head: T, override val tail: MyGenericList[T]) 
 
   override def take(n: Int): MyGenericList[T] = n match {
     case 0 => MyNil
-    case _ => head :: tail.take(n - 1)
+    case _ => MyCons(head, tail.take(n - 1))
 
   }
 
-  override def map[A](f: T => A): MyGenericList[A] = f(head) :: tail.map(f)
+  override def map[A](f: T => A): MyGenericList[A] = MyCons(f(head),tail.map(f))
 
 }
