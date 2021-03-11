@@ -10,27 +10,25 @@ sealed trait MyGenericList[T] {
   def drop(n: Int): MyGenericList[T]
   def take(n: Int): MyGenericList[T]
   def map[K](f: T => K): MyGenericList[K]
-  def ::(elem: T): MyGenericList[T]
+  def ::(elem: T): MyGenericList[T] = TMore(elem, this)
 }
 
 case class MyNil[T]() extends MyGenericList[T] {
   override def head: T = undef
   override def tail: MyGenericList[T] = undef
-  override def drop(n: Int): MyGenericList[T] = undef
-  override def take(n: Int): MyGenericList[T] = undef
+  override def drop(n: Int): MyGenericList[T] = if (n == 0) { this } else { undef }
+  override def take(n: Int): MyGenericList[T] = if (n == 0) { this } else { undef }
   override def map[K](f: T => K): MyGenericList[K] = MyNil[K]()
-  override def ::(elem: T): MyGenericList[T] = MyGenericList(Seq(elem))
 }
 
-case class TMore[T](seq: Seq[T]) extends MyGenericList[T] {
-  override def head: T = seq.head
-  override def tail: MyGenericList[T] = MyGenericList(seq.tail)
+case class TMore[T](value: T, prev: MyGenericList[T]) extends MyGenericList[T] {
+  override def head: T = value
+  override def tail: MyGenericList[T] = prev
   override def drop(n: Int): MyGenericList[T] =
-    if (seq.size < n) { undef } else { MyGenericList(seq.drop(n)) }
+    if (n == 0) { this } else { prev.drop(n - 1) }
   override def take(n: Int): MyGenericList[T] =
-    if (seq.size < n) { undef } else { MyGenericList(seq.take(n)) }
-  override def map[K](f: T => K): MyGenericList[K] = MyGenericList(seq.map(f))
-  override def ::(elem: T): MyGenericList[T] = MyGenericList(Seq(elem) ++ seq)
+    if (n == 0) { MyNil() } else { TMore(value, prev.take(n - 1)) }
+  override def map[K](f: T => K): MyGenericList[K] = TMore(f(value), prev.map(f))
 }
 
 object MyGenericList {
@@ -39,7 +37,7 @@ object MyGenericList {
     first + second
   }
   def apply[T](seq: Seq[T]): MyGenericList[T] =
-    if (seq.isEmpty) { MyNil[T]() } else { TMore(seq) }
+    if (seq.isEmpty) { MyNil() } else { TMore(seq.head, MyGenericList(seq.tail)) }
   def undef: Nothing = throw new UnsupportedOperationException("operation is undefined")
   def fromSeq[T](seq: Seq[T]): MyGenericList[T] = MyGenericList(seq)
   def size[T](TList: MyGenericList[T]): Int = foldLeft((currentCount: Int, now: T) => currentCount + 1, 0, TList)

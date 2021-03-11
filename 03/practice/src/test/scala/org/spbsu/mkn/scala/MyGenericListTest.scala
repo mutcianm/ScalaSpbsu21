@@ -1,7 +1,7 @@
 package org.spbsu.mkn.scala
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.spbsu.mkn.scala.MyGenericList.{fromSeq, size/*, sum*/}
+import org.spbsu.mkn.scala.MyGenericList.{fromSeq, size, sum}
 
 class MyGenericListTest extends AnyFunSuite {
 
@@ -42,10 +42,10 @@ class MyGenericListTest extends AnyFunSuite {
     assert(size(fromSeq(Seq(1,2,3))) == 3)
   }
 
-  /*test("sum") {
-    assertThrows[UnsupportedOperationException](sum(MyNil()))
+  test("sum") {
+    assertThrows[UnsupportedOperationException](sum(MyNil[Int]()))
     assert(sum(fromSeq(Seq(1,2,3))) == 6)
     assert(sum(fromSeq(Seq(1))) == 1)
-  }*/
+  }
 
 }
