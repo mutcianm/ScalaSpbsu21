@@ -39,8 +39,8 @@ case object MyGenericList {
     def insert(x: T, list: MyGenericList[T]): MyGenericList[T] = {
       list match {
         case MyNil => GenericListBuilder(x, MyNil)
-        case GenericListBuilder(y, xs) if comparator.compare(x, y) == -1 /* x < y */ => x :: y :: xs
-        case GenericListBuilder(y, xs) if comparator.compare(x, y) >= 0 => y :: insert(x, xs)
+        case GenericListBuilder(y, xs) if comparator.lt(x, y)  => x :: y :: xs
+        case GenericListBuilder(y, xs) if comparator.gteq(x, y) => y :: insert(x, xs)
       }
     }
 
