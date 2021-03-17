@@ -14,7 +14,7 @@ sealed trait MyGenericList[+T >: Nothing] {
 
   def take(n: Int): MyGenericList[T]
 
-  def map[NT >: T](f: NT => NT): MyGenericList[NT]
+  def map[B](f: T => B): MyGenericList[B]
 
   def foldLeft[B](init: B)(op: (T, B) => B): B
 
@@ -94,7 +94,7 @@ case class GenericListBuilder[T](elem: T, list: MyGenericList[T]) extends MyGene
     case GenericListBuilder(x, lst) => lst.foldLeft(op(x, init))(op)
   }
 
-  override def map[NT >: T](f: NT => NT): MyGenericList[NT] = f(head) :: tail.map(f)
+  override def map[B](f: T => B): MyGenericList[B] = f(head) :: tail.map(f)
 }
 
 case object MyNil extends MyGenericList[Nothing] {
@@ -112,7 +112,7 @@ case object MyNil extends MyGenericList[Nothing] {
     case _ => undef
   }
 
-  override def map[NT >: Nothing](f: NT => NT): MyGenericList[Nothing] = MyNil
+  override def map[B](f: Nothing => B): MyGenericList[B] = MyNil
 
   override def foldLeft[B](init: B)(op: (Nothing, B) => B): B = init
 
