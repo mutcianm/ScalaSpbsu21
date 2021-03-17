@@ -30,15 +30,34 @@ object MyGenericList {
     case _ if seq.isEmpty => MyNil
     case _ => seq.foldRight(MyNil: MyGenericList[T])((elem: T, genList: MyGenericList[T]) => elem :: genList)
   }
+
   def sum[T <: Int](genList: MyGenericList[T]): Int = genList match {
     case MyNil => undef
-    case _     => foldLeft[T, Int](x => y =>  x + y)(genList)(0)
+    case _ => foldLeft[T, Int](x => y => x + y)(genList)(0)
   }
 
   def size[T](genList: MyGenericList[T]): Int = genList match {
     case MyNil => 0
-    case _     => foldLeft[T, Int](_ => x => x + 1)(genList)(0)
+    case _ => foldLeft[T, Int](_ => x => x + 1)(genList)(0)
   }
+
+
+  def sort[T](list: MyGenericList[T])(implicit comparator: Ordering[T]): MyGenericList[T] = list match {
+    case MyNil => MyNil
+    case notNil =>
+      val newListToSort = sort(notNil.tail)
+      findRightPlace(notNil.head, newListToSort)
+  }
+
+  private def findRightPlace[T](elem: T, list: MyGenericList[T])(implicit comparator: Ordering[T]): MyGenericList[T] = list match {
+    case MyNil => MyCons(elem, MyNil)
+    case notNil =>
+      if (comparator.gteq(elem, notNil.head))
+        MyCons(notNil.head, findRightPlace(elem, notNil.tail))
+      else
+        MyCons(elem, notNil)
+  }
+
 
 }
 
@@ -72,6 +91,6 @@ case class MyCons[T](override val head: T, override val tail: MyGenericList[T]) 
 
   }
 
-  override def map[A](f: T => A): MyGenericList[A] = MyCons(f(head),tail.map(f))
+  override def map[A](f: T => A): MyGenericList[A] = MyCons(f(head), tail.map(f))
 
 }
