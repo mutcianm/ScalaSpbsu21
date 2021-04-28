@@ -10,26 +10,11 @@ import java.io.File
 
 class HttpClientSpec extends AnyFunSuite {
   test("http request to ya.ru returns content") {
-    AsyncHttpClientCatsBackend[IO]()
-      .flatMap { backend =>
-        basicRequest
-          .get(uri"https://ya.ru")
-          .send(backend)
-      }
-      .map( resp => println(resp))
-      .unsafeRunSync()
+
   }
 
   test("download ical from emkn") {
-    AsyncHttpClientCatsBackend[IO]()
-      .flatMap { backend =>
-        basicRequest
-          .get(uri"https://emkn.ru/users/446/classes.ics")
-          .response(asFile(new File("foo.ical")))
-          .send(backend)
-      }
-      .map( resp => println(resp))
-      .unsafeRunSync()
+
   }
 
 }

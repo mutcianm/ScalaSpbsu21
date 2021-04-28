@@ -21,9 +21,7 @@ class IcalTest extends AnyFunSuite with BeforeAndAfter {
   }
 
   test("read ical from file") {
-    val fin = new FileInputStream("foo.ical").filteringDSTAMP
-    val builder = new CalendarBuilder
-    val calendar = builder.build(fin)
+
   }
 
   test("read ical from stream over http") {
