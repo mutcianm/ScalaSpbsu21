@@ -15,6 +15,7 @@ class IcalTest extends AnyFunSuite with BeforeAndAfter {
   before {
     System.setProperty("net.fortuna.ical4j.timezone.cache.impl", classOf[MapTimeZoneCache].getName)
     System.setProperty("ical4j.parsing.relaxed", "true")
+    System.setProperty("ical4j.unfolding.relaxed", "true")
   }
 
   implicit class FISExt(is: FileInputStream) {
