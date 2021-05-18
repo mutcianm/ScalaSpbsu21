@@ -49,4 +49,17 @@ object MyGenericList {
       case _ => foldLeft(f, f(startValue, TList.head), TList.tail)
     }
   }
+
+  def insertInSorted[T](elem : T, list : MyGenericList[T])(implicit comparator : Ordering[T]) : MyGenericList[T] =
+    list match {
+      case MyNil => fromSeq(Seq(elem))
+      case list  => if (comparator.lt(elem, list.head)) elem :: list
+                    else list.head :: insertInSorted(elem, list.tail)
+  }
+
+  def sort[T](list: MyGenericList[T])(implicit comparator: Ordering[T]): MyGenericList[T] =
+    list match {
+      case MyNil => MyNil
+      case list  => insertInSorted(list.head, sort(list.tail))
+    }
 }

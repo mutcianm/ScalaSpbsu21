@@ -1,7 +1,7 @@
 package org.spbsu.mkn.scala
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.spbsu.mkn.scala.MyGenericList.{fromSeq, size, sum}
+import org.spbsu.mkn.scala.MyGenericList.{fromSeq, size, sum, sort}
 
 class MyGenericListTest extends AnyFunSuite {
 
@@ -46,6 +46,14 @@ class MyGenericListTest extends AnyFunSuite {
     assertThrows[UnsupportedOperationException](sum(MyNil))
     assert(sum(fromSeq(Seq(1,2,3))) == 6)
     assert(sum(fromSeq(Seq(1))) == 1)
+  }
+
+  test("sort") {
+    assert(sort[Int](MyNil) == MyNil)
+    assert(sort(fromSeq(Seq(1,2,3))) == fromSeq(Seq(1,2,3)))
+    assert(sort(fromSeq(Seq(1,3,2))) == fromSeq(Seq(1,2,3)))
+    assert(sort(fromSeq(Seq(1,3,2,0,-1))) == fromSeq(Seq(-1,0,1,2,3)))
+    assert(sort(fromSeq(Seq(1,3,2,0,-1.98))) == fromSeq(Seq(-1.98,0,1,2,3)))
   }
 
 }
