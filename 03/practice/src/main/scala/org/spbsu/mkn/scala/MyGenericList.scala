@@ -15,6 +15,7 @@ object MyGenericList {
   def undef: Nothing = throw new UnsupportedOperationException("operation is undefined")
   def fromSeq(seq: Seq[Int]): MyGenericList = ???
   def size(intList: MyGenericList): Int     = ???
+  def sum(intList: MyGenericList): Int      = ???
   // extra task: implement sum using foldLeft
   // def foldLeft(???)(???): ??? = ???
 }
